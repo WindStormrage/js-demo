@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<title>无标题</title>
+		<style type="text/css">
+			.Display div{
+				float:left; 
+				background-color:#666; 
+				margin:20; 
+				padding:10
+			}
+			.Display p{
+				font-size:50px; 
+				color:#fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="Control">
+			<input  id="input" type="text">
+			<button id="leftIn"  >左侧入</button>
+			<button id="rightIn" >右侧入</button>
+			<button id="leftOut" >左侧出</button>
+			<button id="rightOut">右侧出</button>
+		</div>
+		<div id="Display" class="Display"></div>
+		
+		<script type="text/javascript">
+			document.getElementById('leftIn')  .addEventListener("click",leftIn);
+			document.getElementById('rightIn') .addEventListener("click",rightIn);
+			document.getElementById('leftOut') .addEventListener("click",leftOut);
+			document.getElementById('rightOut').addEventListener("click",rightOut);
+			var data = [];
+
+			window.onload = function(){
+				var html = "";
+				for (var i = 0; i < data.length; i++) {
+					html = html 
+						+"<div id='"
+						+i
+						+"' onclick='del("
+						+i
+						+")'><p>"
+						+data[i]
+						+"</p></div>";
+				};
+				document.getElementById('Display').innerHTML = html;
+			}
+
+			function display () {
+				var html = "";
+				for (var i = 0; i < data.length; i++) {
+					html = html 
+						+"<div id='"
+						+i
+						+"' onclick='del("
+						+i
+						+")'><p>"
+						+data[i]
+						+"</p></div>";
+				};
+				document.getElementById('Display').innerHTML = html;
+			}
+
+			function leftIn () {
+				var add = document.getElementById('input').value;
+				if (!isNaN(add)&&add!="") {
+					data.unshift(add);
+					document.getElementById('input').value = "";
+					display();
+				}else{
+					alert("非法的字符，请输入数字");
+					document.getElementById('input').value = "";
+				}
+			}
+			function rightIn () {
+				var add = document.getElementById('input').value;
+				if (!isNaN(add)&&add!="") {
+					data.push(add);
+					document.getElementById('input').value = "";
+					display();
+				}else{
+					alert("非法的字符，请输入数字");
+					document.getElementById('input').value = "";
+				}
+			}
+			function leftOut () {
+				if (data.length != 0) {
+					var del = data.shift();
+					alert("删除元素为："+del);
+					display();
+				} else{
+					alert("都没有元素了，你还想删什么？");
+				};
+			}
+			function rightOut () {
+				if (data.length != 0) {
+					var del = data.pop();
+					alert("删除元素为："+del);
+					display();
+				} else{
+					alert("都没有元素了，你还想删什么？");
+				};
+			}
+			function del (i) {
+				var del = data[i];
+				data.splice(i,1);
+				alert("删除元素为："+del);
+				display();
+			}
+		</script>
+	</body>
+</html>
